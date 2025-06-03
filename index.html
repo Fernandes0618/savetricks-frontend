@@ -2,16 +2,102 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>Login - SaveTricks</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #E8FCF1;
+      font-family: 'Montserrat', sans-serif;
+      color: #2C3E3A;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 10px;
+    }
+    .container {
+      background: #CFF3E3;
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 12px #58A69E99;
+      width: 100%;
+      max-width: 350px;
+    }
+    h1 {
+      text-align: center;
+      color: #58A69E;
+      font-weight: 700;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 1.8rem;
+    }
+    .icon-dollar {
+      font-weight: 900;
+      font-size: 2rem;
+      color: #3E726C;
+      font-family: 'Courier New', Courier, monospace;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 5px;
+      margin-top: 15px;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1.5px solid #58A69E;
+      font-size: 1rem;
+      background: #E8FCF1;
+      color: #2C3E3A;
+      outline-color: #58A69E;
+      transition: border-color 0.3s ease;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      background: #58A69E;
+      color: #E8FCF1;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .register-link a {
+      color: #3E726C;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .register-link a:hover {
+      color: #2F5D57;
+    }
+    button:hover { background: #3E726C; }
+  </style>
 </head>
 <body>
-  <h1>Login</h1>
-  <form onsubmit="login(event)">
-    <label>Usuário: <input type="text" id="username" required></label><br>
-    <label>Senha: <input type="password" id="password" required></label><br>
-    <button type="submit">Entrar</button>
-  </form>
+  <div class="container">
+    <h1><span class="icon-dollar">$</span> SaveTricks</h1>
+    <form onsubmit="login(event)">
+      <label>Usuário: <input type="text" id="username" required></label>
+      <label>Senha: <input type="password" id="password" required></label>
+      <button type="submit">Entrar</button>
+<br><br>
+      <div class="register-link">
+      	Não tem uma conta? <a href="cadastro.html">Cadastre-se</a>
+      </div>
+    </form>
+  </div>
   <script>
     function login(event) {
       event.preventDefault();

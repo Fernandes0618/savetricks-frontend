@@ -2,18 +2,91 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>Cadastro - SaveTricks</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #E8FCF1;
+      font-family: 'Montserrat', sans-serif;
+      color: #2C3E3A;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 10px;
+    }
+    .container {
+      background: #CFF3E3;
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 12px #58A69E99;
+      width: 100%;
+      max-width: 400px;
+    }
+    h1 {
+      text-align: center;
+      color: #58A69E;
+      font-weight: 700;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 1.8rem;
+    }
+    .icon-dollar {
+      font-weight: 900;
+      font-size: 2rem;
+      color: #3E726C;
+      font-family: 'Courier New', Courier, monospace;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 5px;
+      margin-top: 15px;
+    }
+    input[type="text"], input[type="password"], input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1.5px solid #58A69E;
+      font-size: 1rem;
+      background: #E8FCF1;
+      color: #2C3E3A;
+      outline-color: #58A69E;
+      transition: border-color 0.3s ease;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      background: #58A69E;
+      color: #E8FCF1;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover { background: #3E726C; }
+  </style>
 </head>
 <body>
-  <h1>Cadastro</h1>
-  <form onsubmit="register(event)">
-    <label>Nome: <input type="text" id="name" required></label><br>
-    <label>Email: <input type="email" id="email" required></label><br>
-    <label>Usuário: <input type="text" id="username" required></label><br>
-    <label>Senha: <input type="password" id="password" required></label><br>
-    <button type="submit">Cadastrar</button>
-  </form>
+  <div class="container">
+    <h1><span class="icon-dollar">$</span> SaveTricks</h1>
+    <form onsubmit="register(event)">
+      <label>Nome: <input type="text" id="name" required></label>
+      <label>Email: <input type="email" id="email" required></label>
+      <label>Usuário: <input type="text" id="username" required></label>
+      <label>Senha: <input type="password" id="password" required></label>
+      <button type="submit">Cadastrar</button>
+    </form>
+  </div>
   <script>
     function register(event) {
       event.preventDefault();
@@ -25,7 +98,7 @@
       fetch("https://savetricks-backend.onrender.com/api/cadastro", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome: name, email, usuario: username, senha: password })
+        body: JSON.stringify({ nome: name, email: email, usuario: username, senha: password })
       })
       .then(res => res.json())
       .then(data => {
