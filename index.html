@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - SaveTricks</title>
+</head>
+<body>
+  <h1>Login</h1>
+  <form onsubmit="login(event)">
+    <label>Usuário: <input type="text" id="username" required></label><br>
+    <label>Senha: <input type="password" id="password" required></label><br>
+    <button type="submit">Entrar</button>
+  </form>
+  <script>
+    function login(event) {
+      event.preventDefault();
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      fetch("https://savetricks-backend.onrender.com/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ usuario: username, senha: password })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          localStorage.setItem("usuario_id", data.usuario_id);
+          alert("Login bem-sucedido!");
+          window.location.href = "gastos.html";
+        } else {
+          alert("Usuário ou senha incorretos.");
+        }
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastro - SaveTricks</title>
+</head>
+<body>
+  <h1>Cadastro</h1>
+  <form onsubmit="register(event)">
+    <label>Nome: <input type="text" id="name" required></label><br>
+    <label>Email: <input type="email" id="email" required></label><br>
+    <label>Usuário: <input type="text" id="username" required></label><br>
+    <label>Senha: <input type="password" id="password" required></label><br>
+    <button type="submit">Cadastrar</button>
+  </form>
+  <script>
+    function register(event) {
+      event.preventDefault();
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      fetch("https://savetricks-backend.onrender.com/api/cadastro", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nome: name, email, usuario: username, senha: password })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          alert("Cadastro realizado com sucesso!");
+          window.location.href = "index.html";
+        } else {
+          alert("Erro: " + data.message);
+        }
+      });
+    }
+  </script>
+</body>
+</html>
