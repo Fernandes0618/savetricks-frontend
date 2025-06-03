@@ -1,9 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <link rel="icon" type="image/png" href="icone.png" />
   <title>Gastos - SaveTricks</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
@@ -62,13 +62,21 @@
     a.menu-link:hover {
       background: #3E726C;
     }
-    form, .summary, canvas, ul {
+
+    h2 {
+      color: #58A69E;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    form {
       background: #CFF3E3;
       padding: 15px 20px;
       border-radius: 10px;
       box-shadow: 0 0 10px #58A69E99;
       width: 100%;
-      max-width: 400px;
+      max-width: 380px;
       margin-bottom: 20px;
     }
     label {
@@ -78,7 +86,7 @@
     }
     input, select {
       width: 100%;
-      padding: 10px;
+      padding: 8px 10px;
       border-radius: 6px;
       border: 1.5px solid #58A69E;
       font-size: 1rem;
@@ -86,7 +94,7 @@
       outline-color: #58A69E;
     }
     button {
-      margin-top: 20px;
+      margin-top: 15px;
       width: 100%;
       padding: 10px;
       border: none;
@@ -98,127 +106,232 @@
       cursor: pointer;
     }
     button:hover { background: #3E726C; }
-    ul { list-style: none; padding: 0; }
-    li { padding: 10px; border-bottom: 1px solid #ccc; }
-    .summary { text-align: center; color: #2C3E3A; font-weight: 700; }
+
+    .summary {
+      background: #CFF3E3;
+      border-radius: 10px;
+      padding: 15px 20px;
+      box-shadow: 0 0 10px #58A69E99;
+      font-size: 1.1rem;
+      text-align: center;
+      color: #58A69E;
+      font-weight: 700;
+      margin-bottom: 20px;
+      max-width: 380px;
+      width: 100%;
+    }
+
+    .grid-section {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      max-width: 1000px;
+    }
+    .grid-section > section {
+      flex: 1 1 360px;
+      max-width: 480px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #CFF3E3;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 7px #58A69E88;
+    }
+    thead {
+      background: #A9D9CE;
+    }
+    th, td {
+      padding: 8px 10px;
+      font-size: 0.9rem;
+      text-align: left;
+    }
+    tbody tr:nth-child(even) {
+      background: #DFF7F1;
+    }
+    tbody tr:hover {
+      background: #A9D9CEAA;
+    }
+    .no-data {
+      text-align: center;
+      padding: 20px 0;
+      color: #6B8F8A;
+      font-size: 1rem;
+    }
+
+    canvas {
+      display: block;
+      max-width: 100%;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #6B8F8A;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <span class="icon-dollar">$</span>
-    <h1>SaveTricks</h1>
-  </header>
+<header>
+  <span class="icon-dollar">$</span>
+  <h1>SaveTricks</h1>
+</header>
 
-  <nav>
-    <a href="home.html" class="menu-link">🏠 Home</a>
-    <a href="dicas.html" class="menu-link">💡 Dicas</a>
-    <a href="gastos.html" class="menu-link">📊 Gastos</a>
-    <a href="sobre.html" class="menu-link">🏢 Sobre</a>
-    <a href="bolsa.html" class="menu-link">📈 Bolsa</a>
-  </nav>
+<nav>
+  <a href="home.html" class="menu-link">🏠 Home</a>
+  <a href="dicas.html" class="menu-link">💡 Dicas</a>
+  <a href="gastos.html" class="menu-link">📊 Gastos</a>
+  <a href="sobre.html" class="menu-link">🏢 Sobre</a>
+  <a href="bolsa.html" class="menu-link">📈 Bolsa</a>
+</nav>
 
-  <form id="expense-form">
-    <label>Valor:</label><input type="number" step="0.01" id="amount" required />
-    <label>Categoria:</label>
-    <select id="category" required>
-      <option value="">Selecione</option>
-      <option value="Alimentação">Alimentação</option>
-      <option value="Transporte">Transporte</option>
-      <option value="Moradia">Moradia</option>
-      <option value="Lazer">Lazer</option>
-      <option value="Saúde">Saúde</option>
-      <option value="Educação">Educação</option>
-      <option value="Outros">Outros</option>
-    </select>
-    <label>Data:</label><input type="date" id="date" required />
-    <button type="submit">Adicionar gasto</button>
-  </form>
+<form id="expense-form">
+  <label>Valor (R$):</label><input type="number" step="0.01" id="amount" required />
+  <label>Categoria:</label>
+  <select id="category" required>
+    <option value="">Selecione</option>
+    <option value="Alimentação">Alimentação</option>
+    <option value="Transporte">Transporte</option>
+    <option value="Moradia">Moradia</option>
+    <option value="Lazer">Lazer</option>
+    <option value="Saúde">Saúde</option>
+    <option value="Educação">Educação</option>
+    <option value="Outros">Outros</option>
+  </select>
+  <label>Data:</label><input type="date" id="date" required />
+  <button type="submit">Adicionar gasto</button>
+</form>
 
-  <div class="summary" id="total-summary">Total: R$ 0,00</div>
-  <ul id="expense-list"></ul>
-  <canvas id="category-chart"></canvas>
+<div class="summary" id="total-summary">Total: R$ 0,00</div>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-    const apiUrl = "https://savetricks-backend.onrender.com";
-    const userId = localStorage.getItem("usuario_id");
-    const list = document.getElementById("expense-list");
-    const totalSummary = document.getElementById("total-summary");
-    const chartCanvas = document.getElementById("category-chart");
-    let chartInstance = null;
+<div class="grid-section">
+  <section>
+    <h2>Gastos Registrados</h2>
+    <table id="expense-table">
+      <thead>
+        <tr>
+          <th>Valor (R$)</th>
+          <th>Categoria</th>
+          <th>Data</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="no-data"><td colspan="4">Nenhum gasto registrado</td></tr>
+      </tbody>
+    </table>
+  </section>
 
-    document.getElementById("expense-form").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const amount = parseFloat(document.getElementById("amount").value);
-      const category = document.getElementById("category").value;
-      const date = document.getElementById("date").value;
+  <section>
+    <h2>Resumo por Categoria</h2>
+    <canvas id="category-chart"></canvas>
+  </section>
+</div>
 
-      fetch(apiUrl + "/api/gastos", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ usuario_id: userId, valor: amount, categoria: category, data: date })
-      }).then(() => loadExpenses());
-    });
+<footer>
+  © 2025 SaveTricks — Sua plataforma de educação financeira
+</footer>
 
-    function loadExpenses() {
-      fetch(apiUrl + "/api/gastos/" + userId)
-        .then(res => res.json())
-        .then(data => {
-          list.innerHTML = "";
-          let total = 0;
-          const categoryTotals = {};
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const apiUrl = "https://savetricks-backend.onrender.com";
+  const userId = localStorage.getItem("usuario_id");
+  const tableBody = document.querySelector('#expense-table tbody');
+  const totalSummary = document.getElementById('total-summary');
+  const chartCanvas = document.getElementById('category-chart');
+  let chartInstance = null;
 
-          data.forEach(exp => {
-            total += exp.valor;
-            categoryTotals[exp.categoria] = (categoryTotals[exp.categoria] || 0) + exp.valor;
+  document.getElementById("expense-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const amount = parseFloat(document.getElementById("amount").value);
+    const category = document.getElementById("category").value;
+    const date = document.getElementById("date").value;
 
-            const item = document.createElement("li");
-            item.textContent = `R$ ${exp.valor.toFixed(2)} - ${exp.categoria} - ${exp.data}`;
-            list.appendChild(item);
-          });
+    fetch(apiUrl + "/api/gastos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ usuario_id: userId, valor: amount, categoria: category, data: date })
+    }).then(() => loadExpenses());
+  });
 
-          totalSummary.textContent = `Total: R$ ${total.toFixed(2).replace(".", ",")}`;
-          renderChart(categoryTotals);
+  function loadExpenses() {
+    fetch(apiUrl + "/api/gastos/" + userId)
+      .then(res => res.json())
+      .then(data => {
+        tableBody.innerHTML = "";
+        let total = 0;
+        const categoryTotals = {};
+
+        if (data.length === 0) {
+          tableBody.innerHTML = '<tr class="no-data"><td colspan="4">Nenhum gasto registrado</td></tr>';
+        }
+
+        data.forEach(exp => {
+          total += exp.valor;
+          categoryTotals[exp.categoria] = (categoryTotals[exp.categoria] || 0) + exp.valor;
+
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>R$ ${exp.valor.toFixed(2)}</td>
+            <td>${exp.categoria}</td>
+            <td>${exp.data}</td>
+            <td><button onclick="deleteExpense(${exp.id})" style="background:#e04e4e;color:#fff;border:none;border-radius:5px;padding:5px 8px;cursor:pointer;">Excluir</button></td>
+          `;
+          tableBody.appendChild(row);
         });
-    }
 
-    function renderChart(categoryTotals) {
-      const labels = Object.keys(categoryTotals);
-      const data = Object.values(categoryTotals);
+        totalSummary.textContent = `Total: R$ ${total.toFixed(2).replace(".", ",")}`;
+        renderChart(categoryTotals);
+      });
+  }
 
-      if (chartInstance) chartInstance.destroy();
-      chartCanvas.style.display = labels.length ? 'block' : 'none';
+  function deleteExpense(id) {
+    fetch(apiUrl + "/api/gastos/" + id, { method: "DELETE" })
+      .then(() => loadExpenses());
+  }
 
-      if (labels.length === 0) return;
+  function renderChart(categoryTotals) {
+    const labels = Object.keys(categoryTotals);
+    const data = Object.values(categoryTotals);
 
-      chartInstance = new Chart(chartCanvas, {
-        type: 'pie',
-        data: {
-          labels,
-          datasets: [{
-            data,
-            backgroundColor: [
-              '#58A69E','#7FC1B8','#A7D3C6','#3E726C',
-              '#91BCB7','#2F5D57','#BBD9D1'
-            ]
-          }]
-        },
-        options: {
-          plugins: {
-            legend: { position: 'bottom' },
-            tooltip: {
-              callbacks: {
-                label: function(context) {
-                  return context.label + ': R$ ' + context.parsed.toFixed(2);
-                }
+    if (chartInstance) chartInstance.destroy();
+    chartCanvas.style.display = labels.length ? 'block' : 'none';
+
+    if (labels.length === 0) return;
+
+    chartInstance = new Chart(chartCanvas, {
+      type: 'pie',
+      data: {
+        labels,
+        datasets: [{
+          data,
+          backgroundColor: [
+            '#58A69E','#7FC1B8','#A7D3C6','#3E726C',
+            '#91BCB7','#2F5D57','#BBD9D1'
+          ]
+        }]
+      },
+      options: {
+        plugins: {
+          legend: { position: 'bottom' },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return context.label + ': R$ ' + context.parsed.toFixed(2);
               }
             }
           }
         }
-      });
-    }
+      }
+    });
+  }
 
-    loadExpenses();
-  </script>
+  loadExpenses();
+</script>
 </body>
 </html>
