@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <link rel="icon" type="image/png" href="icone.png" />
   <title>Login - SaveTricks</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
@@ -114,7 +115,7 @@
         if (data.success) {
           localStorage.setItem("usuario_id", data.usuario_id);
           alert("Login bem-sucedido!");
-          window.location.href = "gastos.html";
+          window.location.href = "home.html";
         } else {
           alert("Usuário ou senha incorretos.");
         }
